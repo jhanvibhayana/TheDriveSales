@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sales Academy Registration</title>
+</head>
+<body>
+    <h2>Register for the Sales Academy</h2>
+    <form action="/register" method="POST">
+        <!-- Name -->
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
+        <br>
+
+        <!-- Email -->
+        <label for="email">Email Address:</label>
+        <input type="email" id="emailInput"  name="email" required>
+        <br>
+
+        <!-- Other form fields -->
+        <!-- ... -->
+        <label for="education">Education:</label>
+        <input type="text" id="education" name="education" >
+        <br>
+        <!-- Contact Number -->
+        <label for="contactNumber">Contact Number:</label>
+        <input type="text" id="contactNumber" name="contactNumber" >
+        <br>    
+
+                <!-- Age -->
+        <label for="age">Age:</label>
+        <input type="number" id="age" name="age" required>
+        <br>
+
+        <!-- Submit Button -->
+        <input type="submit" value="Register">
+    </form>
+    <script>
+        // Get a reference to the email input field by its ID
+const emailInput = document.getElementById('emailInput');
+
+// Add a blur event listener to the email input field
+emailInput.addEventListener('blur', () => {
+    const email = emailInput.value; // Get the value of the email input field
+    console.log('Email value:', email);
+    // Send the email to the server using fetch or another AJAX method
+    fetch('/save-data', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email }), // Send the email as JSON data
+    })
+    .then((response) => {
+        if (response.ok) {
+            console.log('Email saved successfully on the server.');
+        } else {
+            console.error('Failed to save email on the server.');
+        }
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+    });
+});
+
+    </script>
+</body>
+</html>
